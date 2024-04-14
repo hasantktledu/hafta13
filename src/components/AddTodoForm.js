@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addTodo } from '../redux/todoSlice';
+import { addTodo, azSirala } from '../redux/todoSlice';
 
 const AddTodoForm = () => {
 	const [value, setValue] = useState('');
@@ -8,11 +8,15 @@ const AddTodoForm = () => {
 
 
 	const onSubmit = (event) => {
-		event.preventDefault();
+		event.preventDefault(); // form gönderimi tarayıcıyı yeniden başlatmasın
 
 		if( value ) {
 			vekilFonksiyon( addTodo({title: value}) )
 		}
+	};
+
+	const todoSirala = () => {
+		vekilFonksiyon( azSirala() )
 	};
 
 	return (
@@ -24,10 +28,14 @@ const AddTodoForm = () => {
 				placeholder='Add todo...'
 				value={value}
 				onChange={(event) => setValue(event.target.value)}
-			></input>
+			/>
 
-			<button type='submit' className='btn btn-primary mb-2'>
-				Submit
+			<button type='submit' className='btn btn-primary mb-2 me-2'>
+				Ekle
+			</button>
+
+			<button type='button' onClick={todoSirala} className='btn btn-secondary mb-2'>
+				Sırala({})
 			</button>
 		</form>
 	);
